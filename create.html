@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/milligram.css">
+
+</head>
+<body>
+    
+
+    <div id="loader" class="loading d-none"></div>
+
+    <div class="container">
+        <div class="row text-center">
+            <h2><strong>Crud Application Using AJAX</strong></h2>
+        </div>
+        <div class="row text-center">
+            <!-- <h2>Learned from <b>Ostad</b></h2> -->
+        </div>
+        <div class="row">
+            <div class="column float-left">
+                <label>Product Name</label>
+                <input id="ProductName" type="text">
+
+                <label>Product Image</label>
+                <input id="ProductImg" type="text">
+
+                <label>Product Code</label>
+                <input id="ProductCode" type="text">
+                
+                    
+
+            </div>
+            <div class="column float-right">
+                
+                <label>Product Qty</label>
+                <input id="ProductQty" type="number">
+
+                <label>Unit Price</label>
+                <input id="UnitPrice" type="number">
+                
+                <label>Total Price</label>
+                <input id="ProductTotal" type="number">
+                
+            </div>
+        </div>
+        <div class="row text-center">
+            <button class="d-block" onclick="CreateData()" type="submit">Request Product</button>
+        </div>
+    </div>
+    
+<script src="js/axios.min.js"></script>
+
+<script>
+    async function CreateData(){
+        let ProductName=document.getElementById("ProductName").value;
+        let ProductImg=document.getElementById("ProductImg").value;
+        let ProductCode=document.getElementById("ProductCode").value;
+        let UnitPrice=document.getElementById("UnitPrice").value;
+        let ProductQty=document.getElementById("ProductQty").value;
+        let ProductTotal=document.getElementById("ProductTotal").value;
+
+        let URL=("http://164.68.107.70:6060/api/v1/CreateProduct");
+        document.getElementById("loader").classList.remove("d-none");
+
+        let res = await axios.post(URL,
+            {
+                Img:ProductImg,
+                ProductCode:ProductCode,
+                ProductName:ProductName,
+                Qty:ProductQty,
+                TotalPrice:ProductTotal,
+                UnitPrice:UnitPrice,
+            }
+        );
+
+        document.getElementById("loader").classList.remove("d-none");
+
+        if(res.status ===200) {
+            window.location= "index.html"
+        }else{
+            alert("Failed to send your request")
+        }
+
+    }
+</script>
+
+</body>
+</html>
